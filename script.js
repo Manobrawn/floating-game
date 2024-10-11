@@ -1,82 +1,153 @@
-const character = document.querySelector(".character");
-const obstacle = document.querySelector(".obstacle");
-const scoreElement = document.querySelector(".score-value");
+class Player {
+  constructor(htmlElement) {
+    this.htmlElement = htmlElement;
+    this.isJumping = false;
+    this.jumpHeight = 150; 
+    this.gravity = 5;    
+    this.position = 100;    
+    this.velocity = 0;    
+    this.isFalling = true;
+    this.maxHeight = 400; 
+  }
 
-let isJumping = false;
-let score = 0;
-let obstacleSpeed = 5;
-let gameInterval;
-let gameStarted = false;
+  jump() {
+    if (this.position < this.maxHeight) { 
+      this.velocity = this.jumpHeight;   
+      this.position += this.velocity;     
+      this.updatePosition();
+    }
+  }
 
-function jump() {
-  if (isJumping || !gameStarted) return;
-
-  isJumping = true;
-  character.classList.add("jumping");
-
-  setTimeout(() => {
-    character.classList.replace("jumping", "falling");
-  }, 400);
-
-  setTimeout(() => {
-    character.classList.remove("falling");
-    isJumping = false;
-  }, 600);
-}
-
-function moveObstacle() {
-  const obstaclePosition = obstacle.offsetLeft;
-
-  if (obstaclePosition <= -20) {
-    resetObstacle();
-  } else {
-    obstacle.style.left = `${obstaclePosition - obstacleSpeed}px`;
+  updatePosition() {
+    this.htmlElement.style.bottom = this.position + 'px';
   }
 }
 
-function resetObstacle() {
-  obstacle.style.left = "600px";
-  scoreElement.textContent = ++score;
+class Obstacle {
+  constructor(htmlElement, speed) {
+    this.htmlElement = htmlElement;
+    this.speed = speed;
+    this.positionX = 100;
+    this.positionY = Math.floor(Math.random() * 80);
+  }
+
+  move() {
+    this.positionX -= this.speed;
+    this.positionY = this.positionY;
+    this.updatePosition();
+    if (this.positionX < -20) {
+      this.positionX = 100;
+      this.positionY = this.positionY = Math.floor(Math.random() * 80);
+    }
+  }
+
+  updatePosition() {
+    this.htmlElement.style.left = this.positionX + '%';
+    this.htmlElement.style.bottom = this.positionY + '%';
+  } 
+
+  detectCollision(player) {
+    const playerRect = player.htmlElement.getBoundingClientRect();
+    const obstacleRect = this.htmlElement.getBoundingClientRect();
+    
+    return (
+    playerRect.left < obstacleRect.right &&
+    playerRect.right > obstacleRect.left &&
+    playerRect.top < obstacleRect.bottom &&
+    playerRect.bottom > obstacleRect.top
+    );
+  }
 }
 
-function detectCollision() {
-  const characterRect = character.getBoundingClientRect();
-  const obstacleRect = obstacle.getBoundingClientRect();
+class Game {
+  constructor(player, obstacle) {
+    this.player = player;
+    this.obstacle = obstacle;
+    this.isGameRunning = false;
+    this.applyGravity();
+  }
 
-  const overlap = (
-    characterRect.left < obstacleRect.right &&
-    characterRect.right > obstacleRect.left &&
-    characterRect.top < obstacleRect.bottom &&
-    characterRect.bottom > obstacleRect.top
-  );
+  applyGravity() {
+    setInterval(() => {
+      if (this.isGameRunning) {
+        this.player.position -= this.player.gravity;
+      }
+      if (this.player.position < 0) {
+        this.player.position = 0;
+        this.player.isFalling = false; 
+      } else {
+        this.player.isFalling = true;
+      }
 
-  if (overlap) endGame();
+      this.player.updatePosition();
+    }, 15); 
+  }
+
+  gameLoop () {
+    if (!this.isGameRunning) {
+      return;
+    }
+    this.obstacle.move();
+    if (this.obstacle.detectCollision(this.player)) {
+      confirm('Game Over! 🙁')
+      game.exit();
+    }
+    requestAnimationFrame(this.gameLoop.bind(this));
+  }
+  
+  exit() {
+    if (this.isGameRunning) {
+      this.isGameRunning = false;  
+      obstacle.positionX = 90;
+      obstacle.positionY = 5;
+      obstacle.updatePosition();
+      player.position = 100;
+      player.updatePosition();
+    };
+  }
+
+  start() {
+    if (!this.isGameRunning) {
+      this.isGameRunning = true; 
+      this.gameLoop();    
+    };        
+  }
 }
 
-function gameLoop() {
-  moveObstacle();
-  detectCollision();
-}
+const player = new Player(document.querySelector('.player'));
+const obstacle = new Obstacle(document.querySelector('.obstacle'), 1);
+const gameContainer = document.getElementById('game-container');
+const game = new Game(player, obstacle, gameContainer);
 
-function startGame() {
-  gameStarted = true;
-  score = 0;
-  scoreElement.textContent = score;
-  gameInterval = setInterval(gameLoop, 20);
-}
 
-function endGame() {
-  clearInterval(gameInterval);
-  alert(`Game Over! Final Score: ${score}`);
-  resetGame();
-}
+const startButton = document.querySelector('.start-button');
+startButton.addEventListener('click', () => {
+  game.start();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {  
+    game.start();  
+  }
+});
 
-function resetGame() {
-  resetObstacle();
-  gameStarted = false;
-}
+const exitButton = document.querySelector('.exit-button');
+exitButton.addEventListener('click', () => {
+  game.exit();
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {  
+    game.exit();  
+  }
+});
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !gameStarted) startGame();
-  if ((e.key === " " || e.key === "Spacebar") && gameStarted) jump();
+document.addEventListener('keydown', (event) => {
+  if (event.code === 'Space') {
+    if (game.isGameRunning) {
+      player.jump();
+    console.log('should be jumping')
+    }
+    else {
+      game.start(); 
+    }
+  }
 });

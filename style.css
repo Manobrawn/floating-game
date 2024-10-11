@@ -1,73 +1,90 @@
 body, html {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f0f0f0;
-}
-
-.wrapper { 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
-.game-container {
-  position: relative;
-  width: 600px;
-  height: 200px;
-  background-color: #d3e4cd;
-  overflow: hidden;
-  border: 2px solid #333;
-}
-
-.character {
-  position: absolute;
-  bottom: 10px;
-  left: 50px;
-  width: 50px;
-  height: 50px;
-  background-color: #5b8c85;
-  border-radius: 5px;
-  transition: bottom 0.2s ease;
-}
-
-.jumping {
-  bottom: 150px;
-}
-
-.falling {
-  bottom: 10px;
-}
-
-.obstacle {
-  position: absolute;
-  bottom: 10px;
-  right: 50px;
-  width: 20px;
-  height: 40px;
-  background-color: #e06666;
-}
-
-.score {
-  position: absolute;
-  top: 5px;
-  left: 10px;
-  font-size: 1.25em;
-  color: #333;
-}
-
-@media (max-width: 768px) {
-  .game-container {
-    transform: scale(0.8);
-    transform-origin: top center;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
   }
-}
-
-@media (max-width: 480px) {
-  .game-container {
-    transform: scale(0.6);
-    transform-origin: top center;
+  
+  .wrapper { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
   }
-}
+  
+  .game-container {
+    position: relative;
+    width: 800px;
+    height: 300px;
+    background-color: #d3e4cd;
+    overflow: hidden;
+    border: 2px solid #333;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: space-around;
+    width: 800px;
+    padding-top: 1rem;
+  }
+
+  .buttons-container button {
+    width: 20vw; 
+    height: 5vh;
+  }
+
+  .platform {
+    border: 1px solid black;
+  }
+
+  .player {
+    position: absolute;
+    left: 100px;
+    width: 35px;
+    height: 35px;
+    background-color: #5b8c85;
+    border-radius: 5px;
+    transition: bottom 0.2s ease;
+  }
+  
+  .jumping {
+    bottom: 150px;
+  }
+  
+  .falling {
+    bottom: 10px;
+  }
+  
+  .obstacle {
+    position: absolute;
+    bottom: 10px;
+    right: 50px;
+    width: 20px;
+    height: 80px;
+    background-color: #e06666;
+  }
+  
+  .score {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    font-size: 1.25em;
+    color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .game-container {
+      transform: scale(0.8);
+      transform-origin: top center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .game-container {
+      transform: scale(0.6);
+      transform-origin: top center;
+    }
+  }
+  
