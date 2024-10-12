@@ -13,7 +13,12 @@ class Player {
   jump() {
     if (this.position < this.maxHeight) { 
       this.velocity = this.jumpHeight;   
-      this.position += this.velocity;     
+      this.position += this.velocity;  
+      
+      if (this.position > this.maxHeight) {  
+        this.position = this.maxHeight;      
+      }
+
       this.updatePosition();
     }
   }
