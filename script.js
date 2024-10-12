@@ -38,6 +38,7 @@ class Obstacle {
     if (this.positionX < -20) {
       this.positionX = 100;
       this.positionY = this.positionY = Math.floor(Math.random() * 80);
+      game.increaseScore(); 
     }
   }
 
@@ -64,6 +65,8 @@ class Game {
     this.player = player;
     this.obstacle = obstacle;
     this.isGameRunning = false;
+    this.score = 0; 
+    this.scoreElement = document.querySelector('.score');
     this.applyGravity();
   }
 
@@ -78,7 +81,6 @@ class Game {
       } else {
         this.player.isFalling = true;
       }
-
       this.player.updatePosition();
     }, 15); 
   }
@@ -89,12 +91,21 @@ class Game {
     }
     this.obstacle.move();
     if (this.obstacle.detectCollision(this.player)) {
-      confirm('Game Over! 🙁')
+      confirm(`Game Over! Your score was ${game.score}!`)
       game.exit();
     }
     requestAnimationFrame(this.gameLoop.bind(this));
   }
   
+  increaseScore() {
+    this.score += 1;
+    this.updateScoreDisplay(); 
+  }
+
+  updateScoreDisplay() { 
+    this.scoreElement.innerText = `Score: ${this.score}`;
+  }
+
   exit() {
     if (this.isGameRunning) {
       this.isGameRunning = false;  
@@ -103,12 +114,16 @@ class Game {
       obstacle.updatePosition();
       player.position = 100;
       player.updatePosition();
+      this.score = 0; 
+      this.updateScoreDisplay(); 
     };
   }
 
   start() {
     if (!this.isGameRunning) {
       this.isGameRunning = true; 
+      this.score = 0; 
+      this.updateScoreDisplay();
       this.gameLoop();    
     };        
   }
