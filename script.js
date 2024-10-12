@@ -120,7 +120,7 @@ class Game {
       player.position = 100;
       player.updatePosition();
       this.score = 0; 
-      this.updateScoreDisplay(); 
+      this.updateScoreDisplay();  
     };
   }
 
@@ -138,7 +138,6 @@ const player = new Player(document.querySelector('.player'));
 const obstacle = new Obstacle(document.querySelector('.obstacle'), 1);
 const gameContainer = document.getElementById('game-container');
 const game = new Game(player, obstacle, gameContainer);
-
 
 const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', () => {
