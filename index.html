@@ -3,23 +3,33 @@
 <head>
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <title>Jumping Game</title>
+  <title>Floating Game</title>
   <link rel='stylesheet' href='style.css'>
   <script src='script.js' defer></script>
 </head>
 <body>
   <header>
-    <h1>Jumping Game</h1>
+    <h1>Floating Game</h1>
   </header>
   <main>
-    <canvas id='canvas'></canvas>
+    <div class='checkbox-toggle'>
+      <label for='toggle-instructions'> Show Instructions</label>
+        <input type='checkbox' id='toggle-instructions' checked>
+    </div>
+    <div class='instructions-container'>
+      <p class='instructions'>
+        Press SPACE to float and do NOT touch the WHITE borders.<br>
+        Let's see how fast you can go!
+      </p>
+    </div>
+    <div class='style-container'><canvas id='canvas'></canvas></div>
     <div class='buttons-container'>
       <button class='start-button'>Start</button>
       <button class='exit-button'>Exit</button>
     </div>
   </main>
   <footer>
-    <p>&copy; 2024, Marcelo Ruediger & Thomas Andersen. All rights reserved.</p>
+    <p>&copy; 2024, Marcelo Ruediger & Thomas Andersen.</p>
   </footer>
 </body>
 

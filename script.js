@@ -1,14 +1,17 @@
 const canvas = document.getElementById('canvas');
 context = canvas.getContext("2d");
 
-canvas.style.background = '#d3e4cd';
+const scoreSound = new Audio('./score-sound.mp3');
+const accelerateSound = new Audio('./accelerate-sound.mp3');
+
+canvas.style.background = '#accba1';
 canvas.width = 800;
 canvas.height = 300;
 
 let playerY = 130;
 const playerX = 100;
-const playerWidth = 25;
-const playerHeight = 25;
+const playerWidth = 30;
+const playerHeight = 30;
 let velocityY = 0; 
 const jumpPower = 3;
 const gravity = 0.1;
@@ -16,25 +19,54 @@ const maxFallSpeed = 7;
 
 let obstacleX = 700;
 let obstacleY = 130;
-const obstacleWidth = 25;
-const obstacleHeight = 90;
+const obstacleWidth = 30;
+const obstacleHeight = 100;
 let obstacleSpeed = 2; 
 const speedIncreaseThreshold = 3; 
 let gameRunning = false;
 let score = 0;
 
 function drawPlayer() {
-  context.fillStyle = 'black';
-  context.fillRect(playerX, playerY, playerWidth, playerHeight);
+  const playerRadius = playerWidth / 2;
+
+  context.fillStyle = 'white';
+  context.beginPath();
+  context.arc(playerX + playerRadius, playerY + playerRadius, playerRadius, 0, Math.PI * 2);
+  context.fill();
+
+  context.strokeStyle = 'white';
+  context.lineWidth = 5;
+  context.beginPath();
+  context.arc(playerX + playerRadius, playerY + playerRadius, playerRadius, 0, Math.PI * 2);
+  context.stroke();
 }
 
 function drawObstacle() {
-  context.fillStyle = '#e06600';
-  context.fillRect(obstacleX, obstacleY, obstacleWidth, obstacleHeight);
+  const borderRadius = obstacleWidth * 0.2;
+
+  context.fillStyle = '#e06600'; 
+  context.strokeStyle = 'white'; 
+  context.lineWidth = 4; 
+
+  context.beginPath();
+  context.moveTo(obstacleX + borderRadius, obstacleY); 
+  context.lineTo(obstacleX + obstacleWidth - borderRadius, obstacleY);
+  context.arcTo(obstacleX + obstacleWidth, obstacleY, obstacleX + obstacleWidth, obstacleY + borderRadius, borderRadius); 
+  context.lineTo(obstacleX + obstacleWidth, obstacleY + obstacleHeight - borderRadius);
+  context.arcTo(obstacleX + obstacleWidth, obstacleY + obstacleHeight, obstacleX + obstacleWidth - borderRadius, obstacleY + obstacleHeight, borderRadius); 
+  context.lineTo(obstacleX + borderRadius, obstacleY + obstacleHeight);  
+  context.arcTo(obstacleX, obstacleY + obstacleHeight, obstacleX, obstacleY + obstacleHeight - borderRadius, borderRadius);
+  context.lineTo(obstacleX, obstacleY + borderRadius); 
+  context.arcTo(obstacleX, obstacleY, obstacleX + borderRadius, obstacleY, borderRadius); 
+  context.closePath();
+
+  context.fill();
+
+  context.stroke();
 }
 
 function drawScore() {
-  context.fillStyle = 'black';
+  context.fillStyle = 'white';
   context.font = '20px Arial';
   context.fillText(`Score: ${score}`, 5, 25); 
 }
@@ -98,9 +130,11 @@ function moveObstacle() {
       obstacleX = canvas.width;
       obstacleY = Math.floor(Math.random() * (canvas.height - obstacleHeight));
       score++;
+      scoreSound.play();
 
       if (score % speedIncreaseThreshold === 0) {
         obstacleSpeed += 0.5;
+        accelerateSound.play();
       }
     }
 
@@ -162,4 +196,19 @@ document.addEventListener('keydown', (event) => {
       playerJump();
     }
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleInstructionsCheckbox = document.getElementById('toggle-instructions');
+  const instructionsContainer = document.querySelector('.instructions-container');
+
+  instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
+
+  toggleInstructionsCheckbox.addEventListener('change', function() {
+    if (toggleInstructionsCheckbox.checked) {
+      instructionsContainer.style.display = 'block';
+    } else {
+      instructionsContainer.style.display = 'none';
+    }
+  });
 });

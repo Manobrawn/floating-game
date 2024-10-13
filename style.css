@@ -1,19 +1,92 @@
+@font-face {
+  font-family: "roboto-normal";
+  src: url(./Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: "roboto-bold";
+  src: url(./Roboto/Roboto-Bold.ttf);
+}
+
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #accba1;
+  color: white;
+  font-family: 'roboto-normal';
+}
+
+h1 {
+  background-color:#e06600;
+  padding: 1rem;
+  border: 2px solid white;
+  border-radius: 20%;
+  font-family: 'roboto-bold';
 }
 
 canvas {
-  border: 1px black solid;
+  border: 5px white solid;
+  border-right: none;
+  border-left: none;
+  display: block;
+}
+
+.style-container {
+  border: 5px solid #e06600;
+  border-right: none;
+  border-left: none;
 }
 
 button {
-  width: 20vw;
+  width: 15vw;
   height: 4vh;
+  background-color: #e06600;
+  border: 2px solid white;
+  border-radius: 20%;
+  outline: none;
+  font-size: 1.3rem;
+  font-family: 'roboto-bold';
+  color: white;
+}
+
+button:hover {
+  border-color: black;
 }
 
 .buttons-container {
- display: flex;
- justify-content: space-around;
+  padding: 3rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.instructions-container {
+  width: 50vw;
+  margin: auto;
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.instructions {
+  line-height: 2rem;
+  text-align: center;
+}
+
+.checkbox-toggle {
+  width: 800px;
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+input[type="checkbox"] {
+  accent-color: #e06600; 
+  width: 20px; 
+  height: 20px; 
+}
+
+.checkbox-toggle label {
+  font-size: 1.2rem;
+  cursor: pointer;
 }
