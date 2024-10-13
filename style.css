@@ -36,10 +36,12 @@ canvas {
   border: 5px solid #e06600;
   border-right: none;
   border-left: none;
+  width: 800px;
 }
 
 button {
   width: 15vw;
+  max-width: 250px;
   height: 6vh;
   background-color: #e06600;
   border: 2px solid white;
@@ -55,13 +57,14 @@ button:hover {
 }
 
 .buttons-container {
-  padding: 3rem;
+  padding: 3rem 0 3rem 0;
   display: flex;
   justify-content: space-around;
+  width: 800px;
 }
 
 .instructions-container {
-  width: 50vw;
+  width: 800px;
   margin: auto;
   font-size: 1.3rem;
   margin-bottom: 2rem;
@@ -89,4 +92,15 @@ input[type="checkbox"] {
 .checkbox-toggle label {
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  body {
+    transform: scale(0.45);
+    transform-origin: top center;
+  }
+
+  button {
+    width: 30vw;
+  }
 }
