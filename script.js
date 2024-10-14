@@ -3,6 +3,7 @@ context = canvas.getContext("2d");
 
 const scoreSound = new Audio('./score-sound.mp3');
 const accelerateSound = new Audio('./accelerate-sound.mp3');
+const gameOverSound = new Audio('./game-over-sound.mp3');
 
 canvas.style.background = '#accba1';
 canvas.width = 800;
@@ -21,7 +22,7 @@ let obstacleX = 700;
 let obstacleY = 130;
 const obstacleWidth = 30;
 const obstacleHeight = 100;
-let obstacleSpeed = 2; 
+let obstacleSpeed = 4; 
 const speedIncreaseThreshold = 3; 
 let gameRunning = false;
 let score = 0;
@@ -119,6 +120,7 @@ function moveObstacle() {
     drawScore(); 
 
     if (checkCollision()) {
+      gameOverSound.play();
       alert(`Game over! Your score was ${score}`); 
       stopGame();
       return; 
@@ -145,7 +147,7 @@ function moveObstacle() {
 function startGame() {
   if (!gameRunning) {
     score = 0; 
-    obstacleSpeed = 2; 
+    obstacleSpeed = 4; 
     gameRunning = true;
     moveObstacle();
   }
@@ -198,6 +200,23 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
+canvas.addEventListener('click', () => {
+  if (!gameRunning) {
+    startGame();
+  } else {
+    playerJump();
+  }
+});
+
+canvas.addEventListener('touchstart', (event) => {
+  event.preventDefault(); 
+  if (!gameRunning) {
+    startGame();
+  } else {
+    playerJump();
+  }
+});
+
 document.addEventListener("DOMContentLoaded", () => {
   const toggleInstructionsCheckbox = document.getElementById('toggle-instructions');
   const instructionsContainer = document.querySelector('.instructions-container');
@@ -212,3 +231,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
