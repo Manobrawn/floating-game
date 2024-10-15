@@ -242,7 +242,17 @@ function handleResize() {
 
   if (screenWidth <= 900 && isLandscape) {
     document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '29rem' : '24rem';
+    scrollToCenterCanvas();
   } else {
     document.querySelector('main').style.marginBottom = ''; 
   }
+}
+
+function scrollToCenterCanvas() {
+  setTimeout(() => { 
+    window.scrollTo({
+      top: canvas.offsetTop - (window.innerHeight / 2 + 45 - canvas.height / 2), 
+      behavior: 'smooth'
+    });
+  }, 200);
 }
