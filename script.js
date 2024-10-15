@@ -6,8 +6,8 @@ const accelerateSound = new Audio('./accelerate-sound.mp3');
 const gameOverSound = new Audio('./game-over-sound.mp3');
 
 canvas.style.background = '#accba1';
-canvas.width = 800;
-canvas.height = 300;
+canvas.width = 1000;
+canvas.height = 400;
 
 let playerY = 130;
 const playerX = 100;
@@ -21,7 +21,7 @@ const maxFallSpeed = 7;
 let obstacleX = 700;
 let obstacleY = 130;
 const obstacleWidth = 30;
-const obstacleHeight = 100;
+const obstacleHeight = 120;
 let obstacleSpeed = 4; 
 const speedIncreaseThreshold = 3; 
 let gameRunning = false;
@@ -171,9 +171,6 @@ window.addEventListener('load', () => {
   drawScore(); 
 });
 
-const startButton = document.querySelector('.start-button');
-startButton.addEventListener('click', startGame);
-
 document.addEventListener('keydown', (event) => {
   if (event.code === 'Enter') {
     startGame();
@@ -185,9 +182,6 @@ document.addEventListener('keydown', (event) => {
     stopGame();
   }
 });
-
-const exitButton = document.querySelector('.exit-button');
-exitButton.addEventListener('click', stopGame);
 
 document.addEventListener('keydown', (event) => {
   if (event.code === 'Space') {
@@ -223,11 +217,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
 
-  toggleInstructionsCheckbox.addEventListener('change', function() {
+  toggleInstructionsCheckbox.addEventListener('change', () => {
+    
+    const screenWidth = window.innerWidth;
+
     if (toggleInstructionsCheckbox.checked) {
       instructionsContainer.style.display = 'block';
+      if (screenWidth <= 900) {
+        document.querySelector('main').style.marginBottom = '26rem';
+      }
     } else {
       instructionsContainer.style.display = 'none';
+      if (screenWidth <= 900) {
+        document.querySelector('main').style.marginBottom = '21rem';
+      }
     }
   });
 });

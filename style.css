@@ -36,38 +36,14 @@ canvas {
   border: 5px solid #e06600;
   border-right: none;
   border-left: none;
-  width: 800px;
-}
-
-button {
-  width: 15vw;
-  max-width: 250px;
-  height: 6vh;
-  background-color: #e06600;
-  border: 2px solid white;
-  border-radius: 20%;
-  outline: none;
-  font-size: 1.3rem;
-  font-family: 'roboto-bold';
-  color: white;
-}
-
-button:hover {
-  border-color: black;
-}
-
-.buttons-container {
-  padding: 3rem 0 3rem 0;
-  display: flex;
-  justify-content: space-around;
-  width: 800px;
+  width: 1000px;
 }
 
 .instructions-container {
   width: 800px;
   margin: auto;
   font-size: 1.3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .instructions {
@@ -76,10 +52,9 @@ button:hover {
 }
 
 .checkbox-toggle {
-  width: 800px;
+  width: 1000px;
   display: inline-flex;
   justify-content: flex-end;
-  align-items: center;
   margin-bottom: 1rem;
 }
 
@@ -94,25 +69,30 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-@media (orientation: landscape) {
+@media (max-width: 900px) and (orientation: landscape) {
   body {
-    height: 100vh;
-    width: 100vw;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  main {
+    transform: scale(1.7);
+    transform-origin: top center;
+    margin-bottom: 21rem;
   }
 
-  button {
-    width: 10vw;
-    height: 10vh;
-  } 
-}
+  footer {
+    transform: scale(1.7);
+  }
+} 
 
 @media (max-width: 900px) {
   body {
-    transform: scale(0.45);
+    transform: scale(0.37);
     transform-origin: top center;
   }
 
   button {
     width: 30vw;
   }
-}
+} 
