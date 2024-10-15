@@ -84,6 +84,10 @@ input[type="checkbox"] {
   footer {
     transform: scale(1.8);
   }
+  
+  .instructions {
+    font-size: 1rem;
+  }
 } 
 
 @media (max-width: 900px) {
