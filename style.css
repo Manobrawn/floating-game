@@ -95,4 +95,8 @@ input[type="checkbox"] {
   button {
     width: 30vw;
   }
+
+  instructions {
+    font-size: 1rem;
+  }
 } 
