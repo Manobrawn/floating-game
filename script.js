@@ -211,27 +211,39 @@ canvas.addEventListener('touchstart', (event) => {
   }
 });
 
+const toggleInstructionsCheckbox = document.getElementById('toggle-instructions');
+const instructionsContainer = document.querySelector('.instructions-container');
+
 document.addEventListener("DOMContentLoaded", () => {
-  const toggleInstructionsCheckbox = document.getElementById('toggle-instructions');
-  const instructionsContainer = document.querySelector('.instructions-container');
 
   instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
 
-  toggleInstructionsCheckbox.addEventListener('change', () => {
-    
-    const screenWidth = window.innerWidth;
+  toggleInstructionsCheckbox.addEventListener('change', handleToggleInstructions);
 
-    if (toggleInstructionsCheckbox.checked) {
-      instructionsContainer.style.display = 'block';
-      if (screenWidth <= 900) {
-        document.querySelector('main').style.marginBottom = '26rem';
-      }
-    } else {
-      instructionsContainer.style.display = 'none';
-      if (screenWidth <= 900) {
-        document.querySelector('main').style.marginBottom = '21rem';
-      }
-    }
-  });
+  window.addEventListener('resize', handleResize);
 });
+
+function handleToggleInstructions() {
+  const screenWidth = window.innerWidth;
+  const isLandscape = window.matchMedia("(orientation: landscape)").matches;
+
+  instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
+
+  if (screenWidth <= 900 && isLandscape) {
+    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '26rem' : '21rem';
+  } else {
+    document.querySelector('main').style.marginBottom = ''; 
+  }
+}
+
+function handleResize() {
+  const screenWidth = window.innerWidth;
+  const isLandscape = window.innerWidth > window.innerHeight;
+
+  if (screenWidth <= 900 && isLandscape) {
+    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '26rem' : '21rem';
+  } else {
+    document.querySelector('main').style.marginBottom = ''; 
+  }
+}
 
