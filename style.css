@@ -76,13 +76,13 @@ input[type="checkbox"] {
   }
   
   main {
-    transform: scale(1.7);
+    transform: scale(1.8);
     transform-origin: top center;
-    margin-bottom: 21rem;
+    margin-bottom: 23rem;
   }
 
   footer {
-    transform: scale(1.7);
+    transform: scale(1.8);
   }
 } 
 
