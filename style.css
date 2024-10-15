@@ -40,7 +40,7 @@ canvas {
 }
 
 .instructions-container {
-  width: 800px;
+  width: 1000px;
   margin: auto;
   font-size: 1.3rem;
   margin-bottom: 1rem;
@@ -96,7 +96,7 @@ input[type="checkbox"] {
     width: 30vw;
   }
 
-  instructions {
+  .instructions {
     font-size: 1rem;
   }
 } 
