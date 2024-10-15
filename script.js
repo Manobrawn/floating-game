@@ -21,7 +21,7 @@ const maxFallSpeed = 7;
 let obstacleX = 700;
 let obstacleY = 130;
 const obstacleWidth = 30;
-const obstacleHeight = 120;
+const obstacleHeight = 140;
 let obstacleSpeed = 4; 
 const speedIncreaseThreshold = 3; 
 let gameRunning = false;
@@ -246,4 +246,3 @@ function handleResize() {
     document.querySelector('main').style.marginBottom = ''; 
   }
 }
-
