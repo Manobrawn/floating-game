@@ -213,10 +213,9 @@ canvas.addEventListener('touchstart', (event) => {
 
 const toggleInstructionsCheckbox = document.getElementById('toggle-instructions');
 const instructionsContainer = document.querySelector('.instructions-container');
-const screenWidth = window.innerWidth;
-const isLandscape = window.innerWidth > window.innerHeight;
 
 document.addEventListener("DOMContentLoaded", () => {
+
   instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
 
   toggleInstructionsCheckbox.addEventListener('change', handleToggleInstructions);
@@ -225,37 +224,26 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function handleToggleInstructions() {
+  const screenWidth = window.innerWidth;
   const isLandscape = window.matchMedia("(orientation: landscape)").matches;
 
   instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
 
   if (screenWidth <= 900 && isLandscape) {
-    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '29rem' : '23rem';
+    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '26rem' : '21rem';
   } else {
     document.querySelector('main').style.marginBottom = ''; 
   }
 }
 
 function handleResize() {
+  const screenWidth = window.innerWidth;
+  const isLandscape = window.innerWidth > window.innerHeight;
+
   if (screenWidth <= 900 && isLandscape) {
-    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '29rem' : '23rem';
+    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '26rem' : '21rem';
   } else {
     document.querySelector('main').style.marginBottom = ''; 
   }
 }
-
-function scrollToGameCanvas() {
-  if (screenWidth <= 900 && isLandscape) {  
-    const instructionsPosition = toggleInstructionsCheckbox.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-      top: instructionsPosition,
-      behavior: 'smooth'
-    });
-  }
-}
-
-window.addEventListener('resize', scrollToGameCanvas);
-window.addEventListener('orientationchange', scrollToGameCanvas);
-
-scrollToGameCanvas();
 
