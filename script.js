@@ -230,7 +230,7 @@ function handleToggleInstructions() {
   instructionsContainer.style.display = toggleInstructionsCheckbox.checked ? 'block' : 'none';
 
   if (screenWidth <= 900 && isLandscape) {
-    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '26rem' : '21rem';
+    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '29rem' : '24rem';
   } else {
     document.querySelector('main').style.marginBottom = ''; 
   }
@@ -241,26 +241,8 @@ function handleResize() {
   const isLandscape = window.innerWidth > window.innerHeight;
 
   if (screenWidth <= 900 && isLandscape) {
-    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '26rem' : '21rem';
+    document.querySelector('main').style.marginBottom = toggleInstructionsCheckbox.checked ? '29rem' : '24rem';
   } else {
     document.querySelector('main').style.marginBottom = ''; 
   }
 }
-
-function scrollToGameCanvas() {
-  const screenWidth = window.innerWidth;
-  const isLandscape = window.innerWidth > window.innerHeight;
-
-  if (screenWidth <= 900 && isLandscape) {  
-    const canvasPosition = canvas.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({
-      top: canvasPosition,
-      behavior: 'smooth'
-    });
-  }
-}
-
-window.addEventListener('resize', scrollToGameCanvas);
-window.addEventListener('orientationchange', scrollToGameCanvas);
-
-scrollToGameCanvas();
