@@ -251,7 +251,7 @@ function handleResize() {
 function scrollToCenterCanvas() {
   setTimeout(() => { 
     window.scrollTo({
-      top: canvas.offsetTop - (window.innerHeight / 2 + 10 - canvas.height / 2), 
+      top: canvas.offsetTop - (window.innerHeight / 2 + 20 - canvas.height / 2), 
       behavior: 'smooth'
     });
   }, 200);
